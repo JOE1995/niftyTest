@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NCMB
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        NCMB.setApplicationKey("2f4666e41e7dfca315b889460333ce5f803b2ecc214f9f5928ed8055b81b8290", clientKey: "e8c0d306f950d895b759313945ae7e700caa6084e69e727b6551f4306d354b8c")
+        
+        // クラスのNCMBObjectを作成
+        let obj = NCMBObject(className: "TestClass")
+        // オブジェクトに値を設定
+        obj.setObject("Hello, NCMB!", forKey: "message")
+        // データストアへの登録
+        obj.saveInBackgroundWithBlock { (error: NSError!) -> Void in
+            if error != nil {
+                // 保存に失敗した場合の処理
+                print("失敗orz")
+            }else{
+                // 保存に成功した場合の処理
+                print("成功おめ！")
+            }
+        }
+        
         return true
     }
 
